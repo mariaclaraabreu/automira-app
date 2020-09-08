@@ -1,7 +1,16 @@
 import React from 'react';
+import { DatePicker } from 'antd';
+import 'antd/dist/antd.css';
 
 const Home: React.FC = () =>{
-    return <h1>HOMEEE</h1>;
+    return (
+      <>
+        <DatePicker />
+        <h1>Oláaaaa</h1>
+      </>
+      
+    );
+    
 }
 
 

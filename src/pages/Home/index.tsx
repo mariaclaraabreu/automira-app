@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Layout, Menu } from 'antd';
 
-import './styles.css';
+
 
 const { Header, Content, Footer } = Layout;
 

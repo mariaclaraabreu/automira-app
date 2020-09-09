@@ -141,7 +141,10 @@ const Offers: React.FC = () =>{
                                 <span><strong>Preço:</strong>R$ 5,000,00</span>
                                 <span><strong>Ano:</strong>2005</span>  
                                 </p>
-                                <div><EyeOutlined title="views" /> views: 2</div>
+                                <div className="views">
+                                    <EyeOutlined title="views" /> 
+                                    <span>views: 2</span>
+                                </div>
                                 
 
                             </InfosOffers>
@@ -150,8 +153,10 @@ const Offers: React.FC = () =>{
                             
                             
                             
+                            
                         </Card>
                     </a>
+                    
                 </Col>
             </Row>
 

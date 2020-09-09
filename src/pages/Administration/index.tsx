@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
+import firebase from '../../firebase';
 
 
 import { Input, Button, List, Avatar } from 'antd';
@@ -23,6 +24,21 @@ const data = [
 
 
 const Administration: React.FC = () =>{
+    
+  useEffect(() => {
+    firebase.firestore().collection('offers').get().then(response => {
+       console.log(response.docs);
+       response.docs.map(item => {
+         console.log(item.data());
+       })
+ 
+    }).catch(err => {
+      console.log(err);
+ 
+    })
+   }, []);
+
+
     return (
       <>
         <h1>Administration</h1>

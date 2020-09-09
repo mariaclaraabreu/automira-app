@@ -14,10 +14,15 @@ export const OffersStyles = styled.div`
     margin: 10px;
   }
 
+  .card {
+    transition: transform 0.2s;
+  }
+
   .card:hover{
     -webkit-box-shadow: 1px 7px 8px -2px rgba(192,192,192,1);
     -moz-box-shadow: 1px 7px 8px -2px rgba(192,192,192,1);
     box-shadow: 1px 7px 8px -2px rgba(192,192,192,1);
+    transform: translateY(7px);
   }
 `;
 
@@ -37,6 +42,29 @@ export const InfosOffers = styled.div`
   p {
     margin-bottom: 0px;
   }
+
+  svg {
+    
+  }
+  .views {
+    margin: 7px -25px -25px -25px;
+    /* margin-top:5px;
+    margin-bottom: -25px;
+    margin-left: -25px;
+    margin-right: -25px; */
+    padding: 10px;
+    background: #198C4D;
+    color: #ffffff;
+    text-align: center;
+   
+
+    font-size: 15px;
+    cursor: default;
+
+    
+
+  }
+
 
 
 `;

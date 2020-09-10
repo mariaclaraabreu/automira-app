@@ -21,7 +21,6 @@ import {
 
 import { UploadOutlined, InboxOutlined } from '@ant-design/icons';
 
-// import {Form} from 'react';
 
 
 const RegisterOffer: React.FC = () =>{
@@ -34,14 +33,16 @@ const RegisterOffer: React.FC = () =>{
   const [km, setKm] = useState('');
   const [board, setBoard] = useState('');
   const [city, setCity] = useState('');
+  const [image, setImage] = useState([]);
 
-  // const [offers, setOffers] = useState([]);
+
   const history = useHistory();
 
   const normFile = (e : any) => {
     console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
+      
     }
     return e && e.fileList;
   };
@@ -61,8 +62,17 @@ const RegisterOffer: React.FC = () =>{
    })
   }, []);
 
+  // async function handleFileChange (e){
+  //   for (let i = 0; i < e.target.files.length; i++) {
+  //     const newFile = e.target.files[i];
+      
+  //  // add an "id" property to each File object
+  //     setImage(prevState => [...prevState, newFile]);
+  //   }
+  // };
 
   async function handleAddOffer (e){
+    
     e.preventDefault();
     try{
       firebase.firestore().collection('offers').add({
@@ -74,6 +84,7 @@ const RegisterOffer: React.FC = () =>{
         km,
         board,
         city,
+        image,
       });
 
       history.push('/administration');
@@ -82,7 +93,13 @@ const RegisterOffer: React.FC = () =>{
       alert('Erro ao cadastrar' + err);
     }
 
+      // firebase.storage().ref().child(`your/file/path/${image.name}`)
+      //   .put(image);
+      // console.log(image);
     
+
+
+
 
   }
 
@@ -175,9 +192,16 @@ const RegisterOffer: React.FC = () =>{
           />
         </Form.Item>
 
-        <Form.Item label="Images">
+        {/* <Form.Item label="Images">
           <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
-            <Upload.Dragger name="files" action="/upload.do">
+            <Upload.Dragger 
+              name="files" 
+              action="/upload.do"
+              
+              onChange={e => setImage(e.fileList.map(image => {
+                return image.name ?? "";
+              }))}  
+            >
               <p className="ant-upload-drag-icon">
                 <InboxOutlined />
               </p>
@@ -185,12 +209,13 @@ const RegisterOffer: React.FC = () =>{
               <p className="ant-upload-hint">Support for a single or bulk upload.</p>
             </Upload.Dragger>
           </Form.Item>
-        </Form.Item>
+        </Form.Item> */}
         
         <Form.Item label="">
             <Button onClick={handleAddOffer}>Button</Button>
         </Form.Item>
 
+      {/* <input  type="file" multiple onChange={handleFileChange}></input> */}
         
       </Form>
 

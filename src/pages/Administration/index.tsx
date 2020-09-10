@@ -1,46 +1,120 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+
+import OfferModel from  '../../models/OfferModel';
+
+
+
 
 import firebase from '../../firebase';
 
+import { Table, Tag, Space } from 'antd';
 
 import { Input, Button, List, Avatar } from 'antd';
 const { Search } = Input;
 
-const data = [
+
+
+
+const columns = [
   {
-    title: 'Ant Design Title 1',
+    title: 'Board',
+    dataIndex: 'board',
+    key: 'board',
+    render: text => <a>{text}</a>,
   },
   {
-    title: 'Ant Design Title 2',
+    title: 'Brand',
+    dataIndex: 'brand',
+    key: 'brand',
   },
   {
-    title: 'Ant Design Title 3',
+    title: 'City',
+    dataIndex: 'city',
+    key: 'city',
   },
   {
-    title: 'Ant Design Title 4',
+    title: 'Color',
+    dataIndex: 'color',
+    key: 'color',
+    
+  },
+  {
+    title: 'Km',
+    dataIndex: 'km',
+    key: 'km',
+    
+  },
+  {
+    title: 'Model',
+    dataIndex: 'model',
+    key: 'model',
+    
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    key: 'price',
+    
+  },
+  {
+    title: 'Year',
+    dataIndex: 'year',
+    key: 'year',
+    
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (text, record) => (
+      <Space size="middle">
+        <a>Invite {record.name}</a>
+        <a>Delete</a>
+      </Space>
+    ),
   },
 ];
 
 
 
+
+
 const Administration: React.FC = () =>{
-    
+  const history = useHistory();
+  const [offers, setOffers] = useState<OfferModel[]>([]);
+
+  const { Column, ColumnGroup } = Table;
+
   useEffect(() => {
-    firebase.firestore().collection('offers').get().then(response => {
-       console.log(response.docs);
-       response.docs.map(item => {
-         console.log(item.data());
-       })
+    const fetchData = async () => {
+      const db = firebase.firestore()
+      const data = await db.collection('offers').get()
+      setOffers(data.docs.map(doc => {
+        return {
+          id: doc.id,
+          board: doc.data().board,
+          brand: doc.data().brand,
+          city: doc.data().city,
+          color: doc.data().color,
+          km: doc.data().km,
+          model: doc.data().model,
+          price: doc.data().price,
+          year: doc.data().year
+        }
+      }))
+    }
+
+    fetchData();
+
+    
  
-    }).catch(err => {
-      console.log(err);
- 
-    })
+  
    }, []);
 
 
     return (
       <>
+
         <h1>Administration</h1>
         <Search
         placeholder="Enter offer"
@@ -48,21 +122,13 @@ const Administration: React.FC = () =>{
         style={{ width: 500 }}
         />
         <div className="listOffers">
-          <List
-            itemLayout="horizontal"
-            dataSource={data}
-            renderItem={item => (
-              <List.Item 
-                actions={[<a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">delete</a>]}
-              >
-                <List.Item.Meta
-                  avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-                  title={<a href="https://ant.design">{item.title}</a>}
-                  description="Ant Design, a design language for background applications, is refined by Ant UED Team"
-                />
-              </List.Item>
-            )}
-          />
+          
+
+
+
+
+          <Table columns={columns} dataSource={offers} />
+
           
         </div>
         <Button type="primary">

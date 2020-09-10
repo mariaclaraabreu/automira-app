@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import firebase from '../../firebase';
 import OfferModel from  '../../models/OfferModel';
 
-import { Card, Row, Col } from 'antd';
+import { Card, Row, Col, Modal, Button } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined, EyeOutlined } from '@ant-design/icons';
 
 import { OffersStyles, InfosOffers } from './styles';
@@ -11,9 +11,13 @@ import BeetleImg from '../../assets/beetle.jpg';
 
 const { Meta } = Card;
 
+
+
+
 const Offers: React.FC = () =>{
 
     const [offers, setOffers] = useState<OfferModel[]>([]);
+    const [view, setViews] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,13 +33,57 @@ const Offers: React.FC = () =>{
               km: doc.data().km,
               model: doc.data().model,
               price: doc.data().price,
-              year: doc.data().year
+              year: doc.data().year,
+              views: doc.data().views,
             }
           }))
         }
     
         fetchData()
        }, []);
+
+    async function handleAddViews(id){
+
+        
+        var newView;
+        
+        const ref = firebase.firestore().collection('offers').doc(id);
+        ref.get().then((doc) => {
+
+            if(doc.exists){
+            newView = offers.map(offer  => {
+                if(offer.id == id){
+                    return offer.views;
+                }
+            })
+
+            newView++;
+            
+
+            }
+        }) 
+
+       
+
+
+
+
+
+        // .then(result => {
+        //     res.status
+        // })
+        
+        
+    }
+
+
+    async function handleUpdate (id){
+        
+
+    } 
+        
+
+       
 
     return (
         <OffersStyles>
@@ -49,8 +97,8 @@ const Offers: React.FC = () =>{
 
             <Row justify="space-around">
                 {offers.map(item => (
-                    <Col className="col" flex="1 1 200px">
-                        <a href="">
+                    <Col key={item.id} className="col" flex="1 1 200px">
+                        <a onClick={() => handleAddViews(item.id)}>
                             <Card className="card"
                                 
                                 cover={
@@ -72,7 +120,7 @@ const Offers: React.FC = () =>{
                                     </p>
                                     <div className="views">
                                         <EyeOutlined title="views" /> 
-                                        <span>views: 2</span>
+                                        <span>views: {item.views}</span>
                                     </div>
                                     
 

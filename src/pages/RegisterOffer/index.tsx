@@ -34,6 +34,7 @@ const RegisterOffer: React.FC = () =>{
   const [board, setBoard] = useState('');
   const [city, setCity] = useState('');
   const [image, setImage] = useState([]);
+  const [views, setViews] = useState([]);
 
 
   const history = useHistory();
@@ -87,6 +88,7 @@ const RegisterOffer: React.FC = () =>{
         board,
         city,
         image,
+        views:0,
       });
 
       history.push('/administration');

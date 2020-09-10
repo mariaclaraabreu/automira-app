@@ -101,7 +101,7 @@ async function handleDeleteOffer(id) {
 }
 
 
-async function handleSearchOffer(board) {
+async function handleSearchOffer() {
   const ref = firebase.firestore().collection('offers').doc(search);
   ref.get().then((doc) => {
 
@@ -130,7 +130,8 @@ async function handleSearchOffer(board) {
           km: doc.data().km,
           model: doc.data().model,
           price: doc.data().price,
-          year: doc.data().year
+          year: doc.data().year,
+          views: doc.data().views,
         }
       }))
     }
@@ -150,7 +151,7 @@ async function handleSearchOffer(board) {
           </Link>
           /Administration</h1>
         <Search
-        placeholder="Enter offer"
+        placeholder="Search for the sign here"
         onSearch={handleSearchOffer}
         style={{ width: 500 }}
         value={search}

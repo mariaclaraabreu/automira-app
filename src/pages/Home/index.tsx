@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import { Layout, Menu } from 'antd';
 
@@ -12,9 +13,16 @@ const Home: React.FC = () =>{
       <Layout>
         <Header className="header">
           <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-            <Menu.Item key="1">Offers</Menu.Item>
-            <Menu.Item key="2">Administration</Menu.Item>
+          <Menu theme="dark" mode="horizontal" >
+            <Menu.Item key="1">
+              <Link to="/offers"></Link>
+              Offers
+            </Menu.Item>
+            <Menu.Item key="2">
+              <Link to="/administration"></Link>
+              Administration
+            </Menu.Item>
+            
       
           </Menu>
 

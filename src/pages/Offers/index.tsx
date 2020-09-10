@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import firebase from '../../firebase';
+import OfferModel from  '../../models/OfferModel';
 
 import { Card, Row, Col } from 'antd';
 import { EditOutlined, EllipsisOutlined, SettingOutlined, EyeOutlined } from '@ant-design/icons';
@@ -9,155 +12,83 @@ import BeetleImg from '../../assets/beetle.jpg';
 const { Meta } = Card;
 
 const Offers: React.FC = () =>{
+
+    const [offers, setOffers] = useState<OfferModel[]>([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          const db = firebase.firestore()
+          const data = await db.collection('offers').get()
+          setOffers(data.docs.map(doc => {
+            return {
+              id: doc.id,
+              board: doc.data().board,
+              brand: doc.data().brand,
+              city: doc.data().city,
+              color: doc.data().color,
+              km: doc.data().km,
+              model: doc.data().model,
+              price: doc.data().price,
+              year: doc.data().year
+            }
+          }))
+        }
+    
+        fetchData()
+       }, []);
+
     return (
         <OffersStyles>
-            <h1>Offers car</h1>
+            <h1>
+                <Link to="/">Home</Link>
+                /Offers car
+            </h1>
 
 
 
 
-            <h1>teste</h1>
             <Row justify="space-around">
-                <Col className="col" flex="1 1 200px">
-                    <a href="">
-                        <Card className="card"
-                            
-                            cover={
-                            <img alt="example" src={BeetleImg}/>
-                            }
-                            
-                        >
-
-                            <InfosOffers>
-                                <h2>Beetle</h2>
-                                <p>
-                                    <span><strong>Marca:</strong>Fiat</span>
-                                    
-                                </p>
-
-                                <p>
-                                <span><strong>Preço:</strong>R$ 5,000,00</span>
-                                <span><strong>Ano:</strong>2005</span>  
-                                </p>
-                                <div><EyeOutlined title="views" /> views: 2</div>
+                {offers.map(item => (
+                    <Col className="col" flex="1 1 200px">
+                        <a href="">
+                            <Card className="card"
                                 
-
-                            </InfosOffers>
-                            
-                            
-                            
-                            
-                            
-                        </Card>
-                    </a>
-                    
-                </Col>
-
-                <Col className="col" flex="1 1 200px">
-                    <a href="">
-                        <Card className="card"
-                            
-                            cover={
-                            <img alt="example" src={BeetleImg}/>
-                            }
-                            
-                        >
-
-                            <InfosOffers>
-                                <h2>Beetle</h2>
-                                <p>
-                                    <span><strong>Marca:</strong>Fiat</span>
-                                    
-                                </p>
-
-                                <p>
-                                <span><strong>Preço:</strong>R$ 5,000,00</span>
-                                <span><strong>Ano:</strong>2005</span>  
-                                </p>
-                                <div><EyeOutlined title="views" /> views: 2</div>
+                                cover={
+                                <img alt="example" src={BeetleImg}/>
+                                }
                                 
+                            >
 
-                            </InfosOffers>
-                            
-                            
-                            
-                            
-                            
-                        </Card>
-                    </a>
-                </Col>
+                                <InfosOffers>
+                                    <h2>{item.model}</h2>
+                                    <p>
+                                        <span><strong>Brand:</strong>{item.brand}</span>
+                                        
+                                    </p>
 
-                <Col className="col" flex="1 1 200px">
-                    <a href="">
-                        <Card className="card"
-                            
-                            cover={
-                            <img alt="example" src={BeetleImg}/>
-                            }
-                            
-                        >
-
-                            <InfosOffers>
-                                <h2>Beetle</h2>
-                                <p>
-                                    <span><strong>Marca:</strong>Fiat</span>
+                                    <p>
+                                        <span><strong>Price:</strong>R$ {item.price}</span>
+                                        <span><strong>Year:</strong>{item.year}</span>  
+                                    </p>
+                                    <div className="views">
+                                        <EyeOutlined title="views" /> 
+                                        <span>views: 2</span>
+                                    </div>
                                     
-                                </p>
 
-                                <p>
-                                <span><strong>Preço:</strong>R$ 5,000,00</span>
-                                <span><strong>Ano:</strong>2005</span>  
-                                </p>
-                                <div><EyeOutlined title="views" /> views: 2</div>
+                                </InfosOffers>
                                 
-
-                            </InfosOffers>
-                            
-                            
-                            
-                            
-                            
-                        </Card>
-                    </a>
-                </Col>
-                <Col className="col" flex="1 1 200px">
-                    <a href="">
-                        <Card className="card"
-                            
-                            cover={
-                            <img alt="example" src={BeetleImg}/>
-                            }
-                            
-                        >
-
-                            <InfosOffers>
-                                <h2>Beetle</h2>
-                                <p>
-                                    <span><strong>Marca:</strong>Fiat</span>
-                                    
-                                </p>
-
-                                <p>
-                                <span><strong>Preço:</strong>R$ 5,000,00</span>
-                                <span><strong>Ano:</strong>2005</span>  
-                                </p>
-                                <div className="views">
-                                    <EyeOutlined title="views" /> 
-                                    <span>views: 2</span>
-                                </div>
                                 
+                                
+                                
+                                
+                            </Card>
+                        </a>
+                        
+                    </Col>
 
-                            </InfosOffers>
-                            
-                            
-                            
-                            
-                            
-                            
-                        </Card>
-                    </a>
-                    
-                </Col>
+                ))}
+                
             </Row>
 
 

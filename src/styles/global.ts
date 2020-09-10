@@ -27,4 +27,22 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+  .button {
+    background-color: #D03135;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 23px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+   
+  }
+
+  .button:hover{
+    border: 0;
+    opacity: 0.8;
+    background-color: #D03135;
+    color: #ffffff;
+  }
 `;

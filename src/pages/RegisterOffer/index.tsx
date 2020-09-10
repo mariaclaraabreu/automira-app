@@ -132,7 +132,7 @@ const RegisterOffer: React.FC = () =>{
       >
         <Form.Item  label="Brand">
           <Input 
-            placeholder="Marca"
+            placeholder="Ex: Fiat"
             value={brand}
             onChange={e => setBrand(e.target.value)}
           />
@@ -140,7 +140,7 @@ const RegisterOffer: React.FC = () =>{
 
         <Form.Item  label="Modelo">
           <Input 
-            placeholder="Model"
+            placeholder="Ex: Fusca"
             value={model}
             onChange={e => setModel(e.target.value)}
           />
@@ -148,7 +148,7 @@ const RegisterOffer: React.FC = () =>{
 
         <Form.Item  label="Price">
           <Input 
-            placeholder="Price"
+            placeholder="In reais"
             value={price}
             onChange={e => setPrice(e.target.value)}
           />
@@ -156,7 +156,7 @@ const RegisterOffer: React.FC = () =>{
 
         <Form.Item label="Year">
           <Input 
-            placeholder="Year"
+            placeholder="Ex: 2005"
             value={year}
             onChange={e => setYear(e.target.value)}
           />
@@ -164,7 +164,7 @@ const RegisterOffer: React.FC = () =>{
         
         <Form.Item  label="Color">
           <Input 
-            placeholder="Color"
+            placeholder="Ex: White"
             value={color}
             onChange={e => setColor(e.target.value)}
           />
@@ -172,7 +172,7 @@ const RegisterOffer: React.FC = () =>{
 
         <Form.Item  label="Km">
           <Input 
-            placeholder="Kilometers"
+            placeholder="Ex: 2.000"
             value={km}
             onChange={e => setKm(e.target.value)}
           />
@@ -180,7 +180,7 @@ const RegisterOffer: React.FC = () =>{
 
         <Form.Item  label="Board">
           <Input 
-            placeholder="Board"
+            placeholder="Ex: POI1236"
             value={board}
             onChange={e => setBoard(e.target.value)}
           />
@@ -188,7 +188,7 @@ const RegisterOffer: React.FC = () =>{
 
         <Form.Item  label="City">
           <Input 
-            placeholder="City"
+            placeholder="Ex: Jaguaruana"
             value={city}
             onChange={e => setCity(e.target.value)}
           />
@@ -214,15 +214,14 @@ const RegisterOffer: React.FC = () =>{
         </Form.Item> */}
         
         <Form.Item label="">
-            <Button onClick={handleAddOffer}>Button</Button>
+            <Button className="button" onClick={handleAddOffer}>Register Offer</Button>
         </Form.Item>
 
       {/* <input  type="file" multiple onChange={handleFileChange}></input> */}
         
       </Form>
 
-      <Button onClick={handleDeleteOffer}>Button</Button>
-
+    
 
     </RegisterStyles>
     

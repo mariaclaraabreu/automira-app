@@ -5,7 +5,6 @@ import OfferModel from  '../../models/OfferModel';
 import {AdministrationStyles} from './styles';
 
 
-
 import firebase from '../../firebase';
 
 import { Table, Tag, Space } from 'antd';
@@ -18,12 +17,11 @@ const { Search } = Input;
 
 
 
-
 const Administration: React.FC = () =>{
   const history = useHistory();
   const [offers, setOffers] = useState<OfferModel[]>([]);
-
-  const { Column, ColumnGroup } = Table;
+  const [search, setSearch] = useState('');
+ 
 
   
 const columns = [
@@ -90,8 +88,6 @@ const columns = [
 ];
 
 async function handleDeleteOffer(id) {
-  
-
 
   firebase.firestore().collection('offers').doc(id).delete().then(() => {
     console.log("Document successfully deleted!");
@@ -101,10 +97,22 @@ async function handleDeleteOffer(id) {
     console.error("Error removing document: ", error);
   });
   
+  
+}
 
-  
-  
-  
+
+async function handleSearchOffer(board) {
+  const ref = firebase.firestore().collection('offers').doc(search);
+  ref.get().then((doc) => {
+
+    if(doc.exists){
+      setOffers(offers.filter(offer => offer.board == search)); 
+      
+
+    }else{
+      alert('Offer not found');
+    }
+  })  
 }
 
   
@@ -136,25 +144,33 @@ async function handleDeleteOffer(id) {
     return (
       <AdministrationStyles>
 
-        <h1>Administration</h1>
+        <h1>
+          <Link className="link" to="/"> 
+          Home
+          </Link>
+          /Administration</h1>
         <Search
         placeholder="Enter offer"
-        onSearch={value => console.log(value)}
+        onSearch={handleSearchOffer}
         style={{ width: 500 }}
+        value={search}
+        onChange={e => setSearch(e.target.value)}
         />
        
           
           <List
+              className="listOffers"
               itemLayout="horizontal"
               dataSource={offers}
               renderItem={item => (
                 <List.Item 
+                  className="listOffersItem"
                   key={item.id}
                   actions={[<Button key="list-loadmore-edit" >edit</Button>, <Button key="list-loadmore-more" onClick={() => handleDeleteOffer(item.id)}>delete</Button>]}
                 >
                 
                   <List.Item.Meta
-                    className="listOffers"
+                    
                     avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
                     title={<a href="https://ant.design">{item.brand}</a>}
                     description=
@@ -175,12 +191,12 @@ async function handleDeleteOffer(id) {
         
         
 
-        <Link className="button" to="/offers/new"> 
-          <Button type="primary">
+        <Link  to="/offers/new"> 
+          <Button className="button">
             Add offer
           </Button>
         </Link>
-      
+
       
       
     

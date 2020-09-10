@@ -38,7 +38,7 @@ const RegisterOffer: React.FC = () =>{
 
   const history = useHistory();
 
-  const normFile = (e : any) => {
+  const antNormFile = (e : any) => {
     console.log('Upload event:', e);
     if (Array.isArray(e)) {
       return e;
@@ -46,6 +46,8 @@ const RegisterOffer: React.FC = () =>{
     }
     return e && e.fileList;
   };
+
+  
 
   useEffect(() => {
 
@@ -193,7 +195,7 @@ const RegisterOffer: React.FC = () =>{
         </Form.Item>
 
         {/* <Form.Item label="Images">
-          <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={normFile} noStyle>
+          <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={AntNormFile} noStyle>
             <Upload.Dragger 
               name="files" 
               action="/upload.do"

@@ -34,14 +34,14 @@ const Offers: React.FC = () => {
       })
   }, [])
 
-  async function handleAddViews(id) {
-    const ref = firebase.firestore().collection('offers').doc(id)
-    const offer = await ref.get()
-    const viewNumber = offer.data().views + 1
-    offer.ref.update({
-      views: viewNumber,
-    })
-  }
+  // async function handleAddViews(id) {
+  //   const ref = firebase.firestore().collection('offers').doc(id)
+  //   const offer = await ref.get()
+  //   const viewNumber = offer.data().views + 1
+  //   offer.ref.update({
+  //     views: viewNumber,
+  //   })
+  // }
 
   async function handleUpdate(id) {}
 
@@ -55,7 +55,8 @@ const Offers: React.FC = () => {
       <Row justify='space-around'>
         {offers.map((item) => (
           <Col key={item.id} className='col' flex='1 1 200px'>
-            <a onClick={() => handleAddViews(item.id)}>
+            {/* <a onClick={() => handleAddViews(item.id)}></a> */}
+            <a href=''>
               <Card
                 className='card'
                 cover={<img alt='example' src={BeetleImg} />}

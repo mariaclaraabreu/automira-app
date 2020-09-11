@@ -73,9 +73,8 @@ const Administration: React.FC = () => {
         /Administration
       </h1>
       <Search
+        className='search'
         placeholder='Search for the offer by car brand name. Ex: Fiat'
-        style={{ width: 500 }}
-        // value={search}
         onChange={function (e) {
           handleSearchOffer(e.target.value)
         }}
@@ -91,12 +90,14 @@ const Administration: React.FC = () => {
             key={item.id}
             actions={[
               <Button
+                className='buttonEdit'
                 key='list-loadmore-edit'
                 onClick={() => handleYetImplemented()}
               >
                 edit
               </Button>,
               <Button
+                className='button'
                 key='list-loadmore-more'
                 onClick={() => handleDeleteOffer(item.id)}
               >

@@ -2,6 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 
+import { HomeStyles } from './styles'
+
 const { Header, Content, Footer } = Layout
 
 const Home: React.FC = () => {
@@ -9,7 +11,7 @@ const Home: React.FC = () => {
     <Layout>
       <Header className='header'>
         <div className='logo' />
-        <Menu theme='dark' mode='horizontal'>
+        <Menu mode='horizontal'>
           <Menu.Item key='1'>
             <Link to='/offers' />
             Offers

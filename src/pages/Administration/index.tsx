@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Table, Space, Input, Button, List, Avatar } from 'antd'
+import { Input, Button, List, Avatar } from 'antd'
 import OfferModel from '../../models/OfferModel'
 import { AdministrationStyles } from './styles'
 import firebase from '../../firebase'
@@ -10,7 +10,7 @@ const { Search } = Input
 
 const Administration: React.FC = () => {
   const [offers, setOffers] = useState<OfferModel[]>([])
-  const [search, setSearch] = useState('')
+  const [filteredOffers, setFilteredOffers] = useState<OfferModel[]>([])
 
   async function handleDeleteOffer(id) {
     firebase
@@ -32,23 +32,20 @@ const Administration: React.FC = () => {
     alert('Ops! Sorry, but we havent implemented this functionality yet')
   }
 
-  async function handleSearchOffer() {
-    const ref = firebase.firestore().collection('offers').doc(search)
-    ref.get().then((doc) => {
-      if (doc) {
-        setOffers(offers.filter((offer) => offer.brand == search))
-      } else {
-        alert('Offer not found')
-      }
-    })
+  async function handleSearchOffer(search) {
+    if (search.length === 0) {
+      setFilteredOffers(offers)
+    } else {
+      setFilteredOffers(offers.filter((offer) => offer.brand.includes(search)))
+    }
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const db = firebase.firestore()
-      const data = await db.collection('offers').get()
-      setOffers(
-        data.docs.map((doc) => {
+    firebase
+      .firestore()
+      .collection('offers')
+      .onSnapshot((snapshot) => {
+        const offersList = snapshot.docs.map((doc) => {
           return {
             id: doc.id,
             board: doc.data().board,
@@ -62,10 +59,9 @@ const Administration: React.FC = () => {
             views: doc.data().views,
           }
         })
-      )
-    }
-
-    fetchData()
+        setOffers(offersList)
+        setFilteredOffers(offersList)
+      })
   }, [])
 
   return (
@@ -78,16 +74,17 @@ const Administration: React.FC = () => {
       </h1>
       <Search
         placeholder='Search for the offer by car brand name. Ex: Fiat'
-        onSearch={handleSearchOffer}
         style={{ width: 500 }}
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        // value={search}
+        onChange={function (e) {
+          handleSearchOffer(e.target.value)
+        }}
       />
 
       <List
         className='listOffers'
         itemLayout='horizontal'
-        dataSource={offers}
+        dataSource={filteredOffers}
         renderItem={(item) => (
           <List.Item
             className='listOffersItem'

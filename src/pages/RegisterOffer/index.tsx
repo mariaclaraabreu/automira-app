@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Input, Button, Upload } from 'antd'
+import { Form, Input, Button } from 'antd'
 import firebase from '../../firebase'
 import { RegisterStyles } from './styles'
 
@@ -14,7 +14,6 @@ const RegisterOffer: React.FC = () => {
   const [board, setBoard] = useState('')
   const [city, setCity] = useState('')
   const [image, setImage] = useState([])
-  const [views, setViews] = useState([])
 
   const history = useHistory()
 
@@ -41,15 +40,6 @@ const RegisterOffer: React.FC = () => {
         console.log(err)
       })
   }, [])
-
-  // async function handleFileChange (e){
-  //   for (let i = 0; i < e.target.files.length; i++) {
-  //     const newFile = e.target.files[i];
-
-  //  // add an "id" property to each File object
-  //     setImage(prevState => [...prevState, newFile]);
-  //   }
-  // };
 
   async function handleAddOffer(e) {
     e.preventDefault()
@@ -160,32 +150,11 @@ const RegisterOffer: React.FC = () => {
           />
         </Form.Item>
 
-        {/* <Form.Item label="Images">
-          <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={AntNormFile} noStyle>
-            <Upload.Dragger 
-              name="files" 
-              action="/upload.do"
-              
-              onChange={e => setImage(e.fileList.map(image => {
-                return image.name ?? "";
-              }))}  
-            >
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">Click or drag file to this area to upload</p>
-              <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-            </Upload.Dragger>
-          </Form.Item>
-        </Form.Item> */}
-
         <Form.Item label=''>
           <Button className='button' onClick={handleAddOffer}>
             Register Offer
           </Button>
         </Form.Item>
-
-        {/* <input  type="file" multiple onChange={handleFileChange}></input> */}
       </Form>
     </RegisterStyles>
   )

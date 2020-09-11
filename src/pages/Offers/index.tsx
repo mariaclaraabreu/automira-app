@@ -9,52 +9,38 @@ import BeetleImg from '../../assets/beetle.jpg'
 
 const Offers: React.FC = () => {
   const [offers, setOffers] = useState<OfferModel[]>([])
-  //   const [view, setViews] = useState()
 
   useEffect(() => {
-    const fetchData = async () => {
-      const db = firebase.firestore()
-      const data = await db.collection('offers').get()
-      setOffers(
-        data.docs.map((doc) => {
-          return {
-            id: doc.id,
-            board: doc.data().board,
-            brand: doc.data().brand,
-            city: doc.data().city,
-            color: doc.data().color,
-            km: doc.data().km,
-            model: doc.data().model,
-            price: doc.data().price,
-            year: doc.data().year,
-            views: doc.data().views,
-          }
-        })
-      )
-    }
-
-    fetchData()
+    firebase
+      .firestore()
+      .collection('offers')
+      .onSnapshot((snapshot) => {
+        setOffers(
+          snapshot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              board: doc.data().board,
+              brand: doc.data().brand,
+              city: doc.data().city,
+              color: doc.data().color,
+              km: doc.data().km,
+              model: doc.data().model,
+              price: doc.data().price,
+              year: doc.data().year,
+              views: doc.data().views,
+            }
+          })
+        )
+      })
   }, [])
 
   async function handleAddViews(id) {
-    let newView
-
     const ref = firebase.firestore().collection('offers').doc(id)
-    ref.get().then((doc) => {
-      if (doc.exists) {
-        newView = offers.map((offer) => {
-          if (offer.id == id) {
-            return offer.views
-          }
-        })
-
-        newView++
-      }
+    const offer = await ref.get()
+    const viewNumber = offer.data().views + 1
+    offer.ref.update({
+      views: viewNumber,
     })
-
-    // .then(result => {
-    //     res.status
-    // })
   }
 
   async function handleUpdate(id) {}

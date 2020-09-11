@@ -1,4 +1,6 @@
 {
+  "strictNullChecks": false,
+  "strict": false,
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -11,7 +13,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "esnext",
     "moduleResolution": "node",

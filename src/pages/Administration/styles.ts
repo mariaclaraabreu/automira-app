@@ -1,5 +1,4 @@
-import styled from 'styled-components';
-
+import styled from 'styled-components'
 
 export const AdministrationStyles = styled.div`
   .listOffers {
@@ -13,23 +12,21 @@ export const AdministrationStyles = styled.div`
     background: #ffffff;
   }
 
-  .link{
+  .link {
     color: #242425;
   }
   a {
     font-size: 20px;
   }
-  a:hover{
-    color: #198C4D;
+  a:hover {
+    color: #198c4d;
   }
 
-  strong{
+  strong {
     margin-right: 5px;
-    
   }
-  
 
   .button {
     margin-right: 10px;
   }
-`;
+`

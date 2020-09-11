@@ -1,5 +1,5 @@
-import { createGlobalStyle } from 'styled-components';
-import 'antd/dist/antd.css';
+import { createGlobalStyle } from 'styled-components'
+import 'antd/dist/antd.css'
 
 export default createGlobalStyle`
   * {
@@ -45,4 +45,14 @@ export default createGlobalStyle`
     background-color: #D03135;
     color: #ffffff;
   }
-`;
+
+  .constructionPage{
+    text-align: center;
+
+  }
+
+  .constructionPage h1 {
+    color: #D03135;
+    font-weight: bold;
+  }
+`

@@ -56,36 +56,38 @@ const Offers: React.FC = () => {
         {offers.map((item) => (
           <Col key={item.id} className='col' flex='1 1 200px'>
             {/* <a onClick={() => handleAddViews(item.id)}></a> */}
-            <a href=''>
-              <Card
-                className='card'
-                cover={<img alt='example' src={BeetleImg} />}
-              >
-                <InfosOffers>
-                  <h2>{item.model}</h2>
-                  <p>
-                    <span>
-                      <strong>Brand:</strong>
-                      {item.brand}
-                    </span>
-                  </p>
+            <Link to='/ind'>
+              <a href=''>
+                <Card
+                  className='card'
+                  cover={<img alt='example' src={BeetleImg} />}
+                >
+                  <InfosOffers>
+                    <h2>{item.model}</h2>
+                    <p>
+                      <span>
+                        <strong>Brand:</strong>
+                        {item.brand}
+                      </span>
+                    </p>
 
-                  <p>
-                    <span>
-                      <strong>Price:</strong>R$ {item.price}
-                    </span>
-                    <span>
-                      <strong>Year:</strong>
-                      {item.year}
-                    </span>
-                  </p>
-                  <div className='views'>
-                    <EyeOutlined title='views' />
-                    <span>views: {item.views}</span>
-                  </div>
-                </InfosOffers>
-              </Card>
-            </a>
+                    <p>
+                      <span>
+                        <strong>Price:</strong>R$ {item.price}
+                      </span>
+                      <span>
+                        <strong>Year:</strong>
+                        {item.year}
+                      </span>
+                    </p>
+                    <div className='views'>
+                      <EyeOutlined title='views' />
+                      <span>views: {item.views}</span>
+                    </div>
+                  </InfosOffers>
+                </Card>
+              </a>
+            </Link>
           </Col>
         ))}
       </Row>

@@ -1,6 +1,6 @@
 {
   "strictNullChecks": false,
-  "strict": false,
+  "strict": true,
   "compilerOptions": {
     "target": "es5",
     "lib": [
@@ -19,7 +19,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react"
+    "jsx": "react",
+    "strict": true
   },
   "include": [
     "src"

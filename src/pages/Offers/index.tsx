@@ -34,14 +34,17 @@ const Offers: React.FC = () => {
       })
   }, [])
 
-  // async function handleAddViews(id) {
-  //   const ref = firebase.firestore().collection('offers').doc(id)
-  //   const offer = await ref.get()
-  //   const viewNumber = offer.data().views + 1
-  //   offer.ref.update({
-  //     views: viewNumber,
-  //   })
-  // }
+  async function handleAddViews(id) {
+    const ref = firebase.firestore().collection('offers').doc(id)
+
+    const offer = await ref.get()
+    if (offer.data() !== undefined && offer.data() !== null) {
+      const viewNumber = offer?.data()?.views + 1
+      offer.ref.update({
+        views: viewNumber,
+      })
+    }
+  }
 
   async function handleUpdate(id) {}
 
@@ -56,38 +59,37 @@ const Offers: React.FC = () => {
         {offers.map((item) => (
           <Col key={item.id} className='col' flex='1 1 200px'>
             {/* <a onClick={() => handleAddViews(item.id)}></a> */}
-            <Link to='/ind'>
-              <a href=''>
-                <Card
-                  className='card'
-                  cover={<img alt='example' src={BeetleImg} />}
-                >
-                  <InfosOffers>
-                    <h2>{item.model}</h2>
-                    <p>
-                      <span>
-                        <strong>Brand:</strong>
-                        {item.brand}
-                      </span>
-                    </p>
 
-                    <p>
-                      <span>
-                        <strong>Price:</strong>R$ {item.price}
-                      </span>
-                      <span>
-                        <strong>Year:</strong>
-                        {item.year}
-                      </span>
-                    </p>
-                    <div className='views'>
-                      <EyeOutlined title='views' />
-                      <span>views: {item.views}</span>
-                    </div>
-                  </InfosOffers>
-                </Card>
-              </a>
-            </Link>
+            <a onClick={() => handleAddViews(item.id)}>
+              <Card
+                className='card'
+                cover={<img alt='example' src={BeetleImg} />}
+              >
+                <InfosOffers>
+                  <h2>{item.model}</h2>
+                  <p>
+                    <span>
+                      <strong>Brand:</strong>
+                      {item.brand}
+                    </span>
+                  </p>
+
+                  <p>
+                    <span>
+                      <strong>Price:</strong>R$ {item.price}
+                    </span>
+                    <span>
+                      <strong>Year:</strong>
+                      {item.year}
+                    </span>
+                  </p>
+                  <div className='views'>
+                    <EyeOutlined title='views' />
+                    <span>views: {item.views}</span>
+                  </div>
+                </InfosOffers>
+              </Card>
+            </a>
           </Col>
         ))}
       </Row>
